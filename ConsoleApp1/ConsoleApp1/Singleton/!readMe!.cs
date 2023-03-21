@@ -1,4 +1,4 @@
-﻿namespace ConsoleApp1.Singleton
+﻿namespace GOF_Patterns.Singleton
 {
     public class _readMe_
     {

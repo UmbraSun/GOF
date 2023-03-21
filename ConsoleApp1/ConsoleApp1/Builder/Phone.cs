@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace ConsoleApp1.Builder
+namespace GOF_Patterns.Builder
 {
     public class Phone
     {

@@ -1,4 +1,4 @@
-﻿namespace ConsoleApp1.Factory_Method
+﻿namespace GOF_Patterns.Factory_Method
 {
     /// <summary>
     /// interface for our factory

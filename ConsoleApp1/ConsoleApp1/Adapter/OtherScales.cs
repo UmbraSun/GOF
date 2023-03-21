@@ -1,4 +1,4 @@
-﻿namespace ConsoleApp1.Adapter
+﻿namespace GOF_Patterns.Adapter
 {
     internal class OtherScales : IScales
     {

@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace ConsoleApp1.Singleton
+namespace GOF_Patterns.Singleton
 {
     public class DatabaseHelper
     {

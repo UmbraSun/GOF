@@ -1,4 +1,4 @@
-﻿namespace ConsoleApp1.Builder
+﻿namespace GOF_Patterns.Builder
 {
     public class IphoneDeveloper : IDeveloper
     {

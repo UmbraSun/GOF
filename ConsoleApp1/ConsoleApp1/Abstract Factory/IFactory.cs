@@ -1,4 +1,4 @@
-﻿namespace ConsoleApp1.Abstract_Factory
+﻿namespace GOF_Patterns.Abstract_Factory
 {
     public interface IFactory
     {

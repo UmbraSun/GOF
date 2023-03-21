@@ -1,4 +1,4 @@
-﻿namespace ConsoleApp1.Prototype
+﻿namespace GOF_Patterns.Prototype
 {
     public interface IAnimal
     {

@@ -1,9 +1,9 @@
-﻿using ConsoleApp1.Abstract_Factory;
-using ConsoleApp1.Adapter;
-using ConsoleApp1.Builder;
-using ConsoleApp1.Factory_Method;
-using ConsoleApp1.Prototype;
-using ConsoleApp1.Singleton;
+﻿using GOF_Patterns.Abstract_Factory;
+using GOF_Patterns.Adapter;
+using GOF_Patterns.Builder;
+using GOF_Patterns.Factory_Method;
+using GOF_Patterns.Prototype;
+using GOF_Patterns.Singleton;
 
 Console.WriteLine("Input num:");
 Console.WriteLine("1. Factory");
