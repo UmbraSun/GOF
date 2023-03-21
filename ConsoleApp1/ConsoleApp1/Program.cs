@@ -1,6 +1,9 @@
 ﻿using GOF_Patterns.Abstract_Factory;
 using GOF_Patterns.Adapter;
+using GOF_Patterns.Bridge;
 using GOF_Patterns.Builder;
+using GOF_Patterns.Composite;
+using GOF_Patterns.Decorator;
 using GOF_Patterns.Factory_Method;
 using GOF_Patterns.Prototype;
 using GOF_Patterns.Singleton;
@@ -12,9 +15,9 @@ Console.WriteLine("3. Builder");
 Console.WriteLine("4. Singleton");
 Console.WriteLine("5. Prototype");
 Console.WriteLine("6. Adapter");
-//Console.WriteLine("Input num:");
-//Console.WriteLine("Input num:");
-//Console.WriteLine("Input num:");
+Console.WriteLine("7. Bridge");
+Console.WriteLine("8. Composite");
+Console.WriteLine("9. Decorator");
 //Console.WriteLine("Input num:");
 //Console.WriteLine("Input num:");
 Console.WriteLine();
@@ -78,5 +81,57 @@ switch (a)
 
         Console.WriteLine(scales.GetWeight());
         Console.WriteLine(aScales.GetWeight());
+        break;
+    case 7:
+        Sender sender = new EmailSender(new DatabaseReader());
+        sender.Send();
+
+        sender.SetDataReader(new FileReader());
+        sender.Send();
+
+        sender = new TelegramBotSender(new DatabaseReader());
+        sender.Send();
+        break;
+    case 8:
+        Item file = new DropDownItem("File->");
+        Item create = new DropDownItem("Create->");
+        Item open = new DropDownItem("Open->");
+        Item exit = new ClickableItem("Exit->");
+
+        file.Add(create);
+        file.Add(open);
+        file.Add(exit);
+
+        Item project = new ClickableItem("Project...");
+        Item repository = new ClickableItem("Repository...");
+
+        create.Add(project);
+        create.Add(repository);
+
+        Item solution = new ClickableItem("Solution...");
+        Item folder = new ClickableItem("Folder...");
+
+        open.Add(solution);
+        open.Add(folder);
+
+        file.Display();
+        Console.WriteLine();
+
+        file.Remove(create);
+        file.Display();
+        Console.WriteLine();
+        break;
+    case 9:
+        IProcessor transmitter = new Transmitter("12345");
+        transmitter.Process();
+        Console.WriteLine();
+
+        Shell hammingCOder = new HammingCoder(transmitter);
+        hammingCOder.Process();
+        Console.WriteLine();
+
+        Shell encoder = new Encryptor(transmitter);
+        encoder.Process();
+        Console.WriteLine();
         break;
 }
