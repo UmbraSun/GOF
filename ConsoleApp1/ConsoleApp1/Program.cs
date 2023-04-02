@@ -4,8 +4,11 @@ using GOF_Patterns.Bridge;
 using GOF_Patterns.Builder;
 using GOF_Patterns.Composite;
 using GOF_Patterns.Decorator;
+using GOF_Patterns.Facade;
 using GOF_Patterns.Factory_Method;
+using GOF_Patterns.Flyweight;
 using GOF_Patterns.Prototype;
+using GOF_Patterns.Proxy;
 using GOF_Patterns.Singleton;
 
 Console.WriteLine("Input num:");
@@ -18,8 +21,9 @@ Console.WriteLine("6. Adapter");
 Console.WriteLine("7. Bridge");
 Console.WriteLine("8. Composite");
 Console.WriteLine("9. Decorator");
-//Console.WriteLine("Input num:");
-//Console.WriteLine("Input num:");
+Console.WriteLine("10. Facade:");
+Console.WriteLine("11. Flyeweight:");
+Console.WriteLine("12. Proxy:");
 Console.WriteLine();
 
 int a = 0;
@@ -134,4 +138,39 @@ switch (a)
         encoder.Process();
         Console.WriteLine();
         break;
+    case 10:
+        MarketPlace marketPlace = new MarketPlace();
+
+        marketPlace.ProductReceipt();
+        Console.WriteLine(new string('-', 20));
+        marketPlace.ProviderReleasae();
+        break;
+    case 11:
+        FlyweightFactory factoryFly = new FlyweightFactory(new List<Shared>()
+        {
+            new Shared("Microsoft", "manager"),
+            new Shared("Google", "android-developer"),
+            new Shared("Google", "web-developer")
+        });
+        factoryFly.List();
+        AddSpecialistDatabase(factoryFly, "Google", "web-developer", "Mike", "AM-17234332");
+        AddSpecialistDatabase(factoryFly, "Apple", "manager", "Aleks", "DE-22110332");
+        factoryFly.List();
+        break;
+    case 12:
+        ISite site = new SiteProxy(new GOF_Patterns.Proxy.Site());
+
+        Console.WriteLine(site.GetPage(1));
+        Console.WriteLine(site.GetPage(2));
+        Console.WriteLine(site.GetPage(3));
+
+        Console.WriteLine(site.GetPage(2));
+        break;
+}
+
+static void AddSpecialistDatabase(FlyweightFactory ff, string company, string position, string name, string passport)
+{
+    Console.WriteLine();
+    Flyweight flyweight = ff.GetFlyweight(new Shared(company, position));
+    flyweight.Process(new Unique(name, passport));
 }
