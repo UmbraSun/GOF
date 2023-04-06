@@ -2,11 +2,14 @@
 using GOF_Patterns.Adapter;
 using GOF_Patterns.Bridge;
 using GOF_Patterns.Builder;
+using GOF_Patterns.ChainOfResponsibility;
+using GOF_Patterns.Command;
 using GOF_Patterns.Composite;
 using GOF_Patterns.Decorator;
 using GOF_Patterns.Facade;
 using GOF_Patterns.Factory_Method;
 using GOF_Patterns.Flyweight;
+using GOF_Patterns.Iterator;
 using GOF_Patterns.Prototype;
 using GOF_Patterns.Proxy;
 using GOF_Patterns.Singleton;
@@ -24,6 +27,9 @@ Console.WriteLine("9. Decorator");
 Console.WriteLine("10. Facade:");
 Console.WriteLine("11. Flyeweight:");
 Console.WriteLine("12. Proxy:");
+Console.WriteLine("13. Chain of responsibility");
+Console.WriteLine("14. Command");
+Console.WriteLine("15. Iterator");
 Console.WriteLine();
 
 int a = 0;
@@ -166,6 +172,42 @@ switch (a)
 
         Console.WriteLine(site.GetPage(2));
         break;
+    case 13:
+        var designer = new Designer();
+        var carpenter = new Carpenters();
+        var finishingWorker = new FinishingWorker();
+
+        designer.SetNextWorker(carpenter).SetNextWorker(finishingWorker);
+
+        GetCommand(designer, "design a house");
+        GetCommand(designer, "lay a brick");
+        GetCommand(designer, "wallpapering");
+        GetCommand(designer, "build a house");
+        break;
+    case 14:
+        Conveyor conveyor = new Conveyor();
+
+        Multipult multipult = new Multipult();
+        multipult.SetCommand(0, new ConveyorCommand(conveyor));
+        multipult.SetCommand(1, new ConveyorAdjustCommand(conveyor));
+        multipult.PressOn(0);
+        multipult.PressOn(1);
+        multipult.PressCancel();
+        multipult.PressCancel();
+        break;
+    case 15:
+        DataStack stack1 = new DataStack();
+        for (int i = 1; i < 5; i++)
+            stack1.Push(i);
+
+        DataStack stack2 = new DataStack(stack1);
+
+        Console.WriteLine(stack1 == stack2);
+
+        stack2.Push(10);
+
+        Console.WriteLine(stack1 == stack2);
+        break;
 }
 
 static void AddSpecialistDatabase(FlyweightFactory ff, string company, string position, string name, string passport)
@@ -173,4 +215,13 @@ static void AddSpecialistDatabase(FlyweightFactory ff, string company, string po
     Console.WriteLine();
     Flyweight flyweight = ff.GetFlyweight(new Shared(company, position));
     flyweight.Process(new Unique(name, passport));
+}
+
+static void GetCommand(IWorker worker, string command)
+{
+    string str = worker.Execute(command);
+    if (str == "")
+        Console.WriteLine($"No one can do the {command}");
+    else
+        Console.WriteLine(str);
 }
