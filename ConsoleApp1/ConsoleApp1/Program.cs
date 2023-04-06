@@ -10,6 +10,9 @@ using GOF_Patterns.Facade;
 using GOF_Patterns.Factory_Method;
 using GOF_Patterns.Flyweight;
 using GOF_Patterns.Iterator;
+using GOF_Patterns.Mediator;
+using GOF_Patterns.Memento;
+using GOF_Patterns.Observer;
 using GOF_Patterns.Prototype;
 using GOF_Patterns.Proxy;
 using GOF_Patterns.Singleton;
@@ -30,6 +33,9 @@ Console.WriteLine("12. Proxy:");
 Console.WriteLine("13. Chain of responsibility");
 Console.WriteLine("14. Command");
 Console.WriteLine("15. Iterator");
+Console.WriteLine("16. Mediator");
+Console.WriteLine("17. Memento");
+Console.WriteLine("18. Observer");
 Console.WriteLine();
 
 int a = 0;
@@ -60,12 +66,12 @@ switch (a)
     case 3:
         IDeveloper androidDeveloper = new AndroidDeveloper();
 
-        Director director = new Director(androidDeveloper);
+        GOF_Patterns.Builder.Director director = new GOF_Patterns.Builder.Director(androidDeveloper);
         Phone samsung = director.MountFullPhone();
         Console.WriteLine(samsung.AboutPhone());
 
         IDeveloper iphoneDeveloper = new IphoneDeveloper();
-        director = new Director(iphoneDeveloper);
+        director = new GOF_Patterns.Builder.Director(iphoneDeveloper);
         Phone iphone = director.MountOnlyPhone();
         Console.WriteLine(iphone.AboutPhone());
         break;
@@ -173,7 +179,7 @@ switch (a)
         Console.WriteLine(site.GetPage(2));
         break;
     case 13:
-        var designer = new Designer();
+        var designer = new GOF_Patterns.ChainOfResponsibility.Designer();
         var carpenter = new Carpenters();
         var finishingWorker = new FinishingWorker();
 
@@ -207,6 +213,58 @@ switch (a)
         stack2.Push(10);
 
         Console.WriteLine(stack1 == stack2);
+        break;
+    case 16:
+        GOF_Patterns.Mediator.Designer des = new GOF_Patterns.Mediator.Designer();
+        GOF_Patterns.Mediator.Director dir = new GOF_Patterns.Mediator.Director();
+
+        Controller mediator = new Controller(des, dir);
+
+        dir.GiveCommand("Design");
+
+        Console.WriteLine();
+
+        des.ExecuteWork();
+        break;
+    case 17:
+        Exchange exchange = new Exchange(10, 10);
+
+        Memory memory = new Memory(exchange);
+
+        exchange.GetDollars();
+        exchange.GetEuro();
+
+        Console.WriteLine("--- Dollar is sold, euro is bought ---");
+        exchange.Sell();
+        exchange.Buy();
+
+        exchange.GetDollars();
+        exchange.GetEuro();
+
+        Console.WriteLine("--- State is saved ---");
+        memory.BackUp();
+
+        Console.WriteLine("--- Dollar is sold, euro is bought ---");
+        exchange.Sell();
+        exchange.Buy();
+
+        exchange.GetDollars();
+        exchange.GetEuro();
+
+        Console.WriteLine("--- State is restored ---");
+        memory.Undo();
+
+        exchange.GetDollars();
+        exchange.GetEuro();
+        break;
+    case 18:
+        Product product = new Product(400);
+
+        Wholesale wholesale = new Wholesale(product);
+        Buyer buyer = new Buyer(product);
+
+        product.ChangePrice(320);
+        product.ChangePrice(280);
         break;
 }
 
