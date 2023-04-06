@@ -16,6 +16,10 @@ using GOF_Patterns.Observer;
 using GOF_Patterns.Prototype;
 using GOF_Patterns.Proxy;
 using GOF_Patterns.Singleton;
+using GOF_Patterns.State;
+using GOF_Patterns.Strategy;
+using GOF_Patterns.Template_method;
+using GOF_Patterns.Visitor;
 
 Console.WriteLine("Input num:");
 Console.WriteLine("1. Factory");
@@ -36,6 +40,10 @@ Console.WriteLine("15. Iterator");
 Console.WriteLine("16. Mediator");
 Console.WriteLine("17. Memento");
 Console.WriteLine("18. Observer");
+Console.WriteLine("19. State");
+Console.WriteLine("20. Strategy");
+Console.WriteLine("21. Template method");
+Console.WriteLine("22. Visitor");
 Console.WriteLine();
 
 int a = 0;
@@ -138,7 +146,7 @@ switch (a)
         Console.WriteLine();
         break;
     case 9:
-        IProcessor transmitter = new Transmitter("12345");
+        IProcessor transmitter = new GOF_Patterns.Decorator.Transmitter("12345");
         transmitter.Process();
         Console.WriteLine();
 
@@ -265,6 +273,48 @@ switch (a)
 
         product.ChangePrice(320);
         product.ChangePrice(280);
+        break;
+    case 19:
+        TrafficLight trafficLight = new TrafficLight(new YellowState());
+        trafficLight.NextState();
+        trafficLight.NextState();
+
+        trafficLight.PreviousState();
+        trafficLight.PreviousState();
+        trafficLight.PreviousState();
+        break;
+    case 20:
+        ResourceReader reader = new ResourceReader(new NewsSiteReader());
+
+        string url = "https://news.com";
+        reader.Read(url);
+
+        url = "https://facebook.com";
+        reader.SetStrategy(new SocialNetworkReader());
+        reader.Read(url);
+
+        url = "@news_channel_telegram";
+        reader.SetStrategy(new TelegramChannelReader());
+        reader.Read(url);
+        break;
+    case 21:
+        GOF_Patterns.Template_method.Transmitter analogTransmitter = new AnalogTransmitter();
+        analogTransmitter.ProcessStart();
+
+        Console.WriteLine();
+
+        GOF_Patterns.Template_method.Transmitter digitTransmitter = new DigirTransmitter();
+        digitTransmitter.ProcessStart();
+        break;
+    case 22:
+        List<IPlace> places = new List<IPlace> { new Zoo(), new Cinema(), new Circus()  };
+
+        foreach (var place in places)
+        {
+            HolidayMaker maker = new HolidayMaker();
+            place.Accept(maker);
+            Console.WriteLine(maker.value);
+        }
         break;
 }
 
